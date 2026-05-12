@@ -75,7 +75,7 @@ export async function exportSlidesToPptx(nodes: HTMLElement[]): Promise<void> {
   const pptx = new PptxGenJS();
 
   pptx.layout = "LAYOUT_WIDE";
-  pptx.author = "Cursor";
+  pptx.author = "Methodda";
   pptx.company = "Methodda";
   pptx.subject = "Interactive presentation export";
   pptx.title = "Methodda Interactive Presentation";

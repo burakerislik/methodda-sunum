@@ -2,8 +2,9 @@
 const repoName = "methodda-sunum";
 // GitHub Pages repo adinizi kullanmak icin bu alani guncelleyebilirsiniz.
 
-const isProduction = process.env.NODE_ENV === "production";
-const repoBase = isProduction && repoName ? `/${repoName}` : "";
+const isGitHubPagesBuild =
+  process.env.GITHUB_ACTIONS === "true" || process.env.DEPLOY_TARGET === "github-pages";
+const repoBase = isGitHubPagesBuild && repoName ? `/${repoName}` : "";
 
 const nextConfig = {
   output: "export",
