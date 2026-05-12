@@ -99,39 +99,6 @@ export function SlideOne({
     }
   ];
 
-  const getConnectorStyle = (
-    startX: number,
-    startY: number,
-    endX: number,
-    endY: number
-  ) => {
-    const deltaX = endX - startX;
-    const deltaY = endY - startY;
-    const length = Math.sqrt(deltaX ** 2 + deltaY ** 2);
-    const angle = (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
-
-    return {
-      left: `calc(${CENTER_X} + ${startX}px)`,
-      top: `calc(${CENTER_Y} + ${startY - 1}px)`,
-      width: `${length}px`,
-      transform: `rotate(${angle}deg)`
-    };
-  };
-
-  const getConnectorEnd = (item: (typeof calloutItems)[number]) => ({
-    x: item.align === "left" ? item.iconCenterX + ICON_RADIUS : item.iconCenterX - ICON_RADIUS,
-    y: item.iconCenterY
-  });
-
-  const getConnectorJoint = (item: (typeof calloutItems)[number]) => {
-    const end = getConnectorEnd(item);
-
-    return {
-      x: item.align === "left" ? end.x + 72 : end.x - 72,
-      y: end.y
-    };
-  };
-
   const getIconStyle = (item: (typeof calloutItems)[number]) => ({
     left: `calc(${CENTER_X} + ${item.iconCenterX - ICON_RADIUS}px)`,
     top: `calc(${CENTER_Y} + ${item.iconCenterY - ICON_RADIUS}px)`
@@ -194,31 +161,6 @@ export function SlideOne({
             </div>
           </div>
         </div>
-
-        {calloutItems.map((item) => {
-          const joint = getConnectorJoint(item);
-          const end = getConnectorEnd(item);
-
-          return (
-            <div key={`${item.key}-connector`}>
-              <div
-                className="absolute z-[1] h-[2px] origin-left bg-[#8AA4BC]"
-                style={getConnectorStyle(item.anchorX, item.anchorY, joint.x, joint.y)}
-              />
-              <div
-                className="absolute z-[1] h-[2px] origin-left bg-[#8AA4BC]"
-                style={getConnectorStyle(joint.x, joint.y, end.x, end.y)}
-              />
-              <div
-                className="absolute z-[1] h-[7px] w-[7px] rounded-full bg-[#8AA4BC]"
-                style={{
-                  left: `calc(${CENTER_X} + ${item.anchorX - 3.5}px)`,
-                  top: `calc(${CENTER_Y} + ${item.anchorY - 3.5}px)`
-                }}
-              />
-            </div>
-          );
-        })}
 
         {calloutItems.map((item) => {
           const Icon = item.icon;
